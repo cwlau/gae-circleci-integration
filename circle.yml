@@ -27,6 +27,8 @@ dependencies:
     # vendor our dependencies
     # - mkdir -p lib
     # - pip install -r requirements.txt -t lib
+
+    - pip install --upgrade pip setuptools webapp2 jinja2
     # Make sure gcloud is up to date
     - gcloud --quiet components update app
     # authenticate gcloud
