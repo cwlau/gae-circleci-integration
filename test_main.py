@@ -7,7 +7,7 @@ class MainTest(unittest.TestCase):
     local instance of the server."""
 
     def setUp(self):
-        self.app = main.app.test_client()
+        self.app = main.app
 
     def test_hello_world(self):
         # rv = self.app.get('/get_author/ulysses')
