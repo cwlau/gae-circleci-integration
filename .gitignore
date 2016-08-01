@@ -1,3 +1,12 @@
 # Google App Engine generated folder
 appengine-generated/
+
 api_key.py
+
+
+*.py[cod]
+
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
