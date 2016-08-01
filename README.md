@@ -23,8 +23,8 @@ You will need to setup both Google Cloud Project and CircleCI.
 ![](./images/search_app_engine_admin_api.png)
 
 - Under Api Manager -> Credentials -> Service Account key, create a JSON key and download it.
-<img src="./images/credential_menu.png" style="max-width:500px;" />
-<img src="./images/credential_secret.png" style="max-width:500px;" />
+<img src="./images/credential_menu.png" width="500px" />
+<img src="./images/credential_secret.png" width="500px" />
 
 ### CircleCI
 
