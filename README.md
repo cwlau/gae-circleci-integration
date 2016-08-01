@@ -23,8 +23,8 @@ You will need to setup both Google Cloud Project and CircleCI.
 ![](./images/search_app_engine_admin_api.png)
 
 - Under Api Manager -> Credentials -> Service Account key, create a JSON key and download it.
-![](./images/credential_menu.png)
-![](./images/credential_secret.png)
+![minipic](./images/credential_menu.png)
+![minipic](./images/credential_secret.png)
 
 ### CircleCI
 
@@ -58,3 +58,11 @@ You will need to base64 encode the key files and add to the Circle CI project as
 ### Reference
 
 [Google Cloud Platform Github demo for App Engine integration](https://github.com/GoogleCloudPlatform/continuous-deployment-circle)
+
+
+<style>
+img[alt="minipic"] {
+  max-width:  400px; 
+  display: block;
+}
+</style>
