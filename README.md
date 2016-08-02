@@ -1,6 +1,9 @@
 Google App Engine CircleCI Continuous Integration
 ========================
 
+![](https://circleci.com/gh/cwlau/gae-circleci-integration.png?&style=shield&circle-token=b902e34911a5b20ab784d48e7f05a2145e737d0a)
+
+
 This repository contains Google App Engine source code which is available for continuous integration with CircleCI.
 
 Live demo: http://gae-circleci-integration.appspot.com
