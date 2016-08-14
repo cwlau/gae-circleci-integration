@@ -44,11 +44,6 @@ You will need to base64 encode the key files and add to the Circle CI project as
 
 ![](./images/circleci_env_var_settings.png)
 
-- Base64 encdode the api_key.py file
-
-`base64 api_key.py`
-
-- Copy the output of the base64 command into the 'Value' form, with the Name field set to API_KEY. Click Save Variable.
 
 - In the circle.yml file, replace the project_id in `GCLOUD_PROJECT: "gae-circleci-integration"` with your project id.
 
