@@ -12,8 +12,11 @@ Live demo: http://gae-circleci-integration.appspot.com
 
 You will go through the following key steps in a normal software development lifecycle:
 
-Edit code -> Commit to Github (master branch) -> Test with CircleCI -> Deploy to Google App Engine
+Without CI: manual test and deployment is required
+![](./images/without_ci.png)
 
+With CI: test and deployment process is automatic
+![](./images/with_ci.png)
 
 ## Let's begin
 
