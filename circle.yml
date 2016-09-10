@@ -38,35 +38,45 @@ dependencies:
     # # Replace <your-project-id>
     # - gcloud config set project ${GCLOUD_PROJECT}"
 
+    - sudo apt-get remove python-virtualenv python-openssl python3-openssl
+    - sudo apt-get update
+    - sudo apt-get install python-openssl python3-openssl
+    - sudo rm -rf /opt/google-cloud-sdk/
+    - export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - export CLOUDSDK_PYTHON_SITEPACKAGES=1
+    - curl https://sdk.cloud.google.com | bash
+    - source ~/.bashrc
+    - export CLOUDSDK_CORE_DISABLE_PROMPTS=0
+
     # For some reasons, there is an issue with the pre-installed gcloud that
     # PyOpenSSL is not available when trying to activate the service account.
     # Re-installing the gcloud worked as a workaround.
     # See https://discuss.circleci.com/t/deployment-to-appengine-fails-pyopenssl-not-available/2154
-    - sudo apt-get remove python-virtualenv python-openssl python3-openssl
-    - sudo apt-get update
-    - sudo apt-get install python-openssl python3-openssl
+    # - sudo apt-get remove python-virtualenv python-openssl python3-openssl
+    # - sudo apt-get update
+    # - sudo apt-get install python-openssl python3-openssl
 
-    - sudo chmod +x ~/.bashrc
+    # - sudo chmod +x ~/.bashrc
     # - sudo rm -rf /opt/google-cloud-sdk/
 
     # Action failed: curl https://sdk.cloud.google.com | bash
     # - curl https://sdk.cloud.google.com | bash
 
-    - sudo bash ${HOME}/sdk.sh
+    # - sudo bash ${HOME}/sdk.sh
     # - sudo export PATH="/opt/google-cloud-sdk/bin:$PATH"
 
-    # The next line updates PATH for the Google Cloud SDK.
-    - source "$HOME/google-cloud-sdk/path.bash.inc"
-    # The next line enables bash completion for gcloud.
-    - source "$HOME/google-cloud-sdk/completion.bash.inc"
+    # # The next line updates PATH for the Google Cloud SDK.
+    # - source $HOME/google-cloud-sdk/path.bash.inc"
+    # # The next line enables bash completion for gcloud.
+    # - source "$HOME/google-cloud-sdk/completion.bash.inc"
 
-    - source ~/.bashrc
-    - which gcloud
+    # - source ~/.bashrc
+    # - which gcloud
 
     # - echo ${GCLOUD_SERVICE_KEY} | base64 --decode > ${HOME}/client-secret.json
     - /opt/google-cloud-sdk/bin/gcloud config set project ${GCLOUD_PROJECT}
     - /opt/google-cloud-sdk/bin/gcloud --quiet components update
-    - /opt/google-cloud-sdk/bin/gcloud --quiet components install beta
+    # - /opt/google-cloud-sdk/bin/gcloud --quiet components install beta
     - /opt/google-cloud-sdk/bin/gcloud auth activate-service-account ${GCLOUD_SERVICE_ACCOUNT} --key-file ${HOME}/client-secret.json
 
 test:
