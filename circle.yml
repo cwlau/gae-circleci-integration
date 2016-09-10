@@ -53,6 +53,7 @@ dependencies:
     # - curl https://sdk.cloud.google.com | bash
 
     - sudo bash ${HOME}/sdk.sh
+    - sudo export PATH="/opt/google-cloud-sdk/bin:$PATH"
     - source ~/.bashrc
     - which gcloud
 
