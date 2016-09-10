@@ -46,7 +46,7 @@ dependencies:
     - sudo apt-get install python-openssl python3-openssl
     - sudo rm -rf /opt/google-cloud-sdk/
     - curl https://sdk.cloud.google.com | bash
-    - source ~/.bashrc
+    - sudo source ~/.bashrc
 
   post:
       # - echo ${GCLOUD_SERVICE_KEY} | base64 --decode > ${HOME}/client-secret.json
