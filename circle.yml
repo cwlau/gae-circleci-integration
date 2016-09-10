@@ -22,7 +22,7 @@ dependencies:
     - ~/google-cloud-sdk
   pre:
     - echo $CLIENT_SECRET | base64 --decode > ${HOME}/client-secret.json
-    - if [ ! -d ~/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | bash; fi:
+    - if [ ! -d ~/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | sudo bash; fi:
         environment:
           CLOUDSDK_CORE_DISABLE_PROMPTS: 1
     - ~/google-cloud-sdk/bin/gcloud --quiet components update
