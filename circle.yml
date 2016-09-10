@@ -45,9 +45,9 @@ dependencies:
     - sudo apt-get remove python-virtualenv python-openssl python3-openssl
     - sudo apt-get update
     - sudo apt-get install python-openssl python3-openssl
-    # - sudo rm -rf /opt/google-cloud-sdk/
-    # - curl https://sdk.cloud.google.com | bash
-    - sudo bash ${HOME}/sdk.sh
+    - sudo rm -rf /opt/google-cloud-sdk/
+    - curl https://sdk.cloud.google.com | bash
+    # - sudo bash ${HOME}/sdk.sh
     - source ~/.bashrc
     - which gcloud
 
