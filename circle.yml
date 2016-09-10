@@ -18,26 +18,16 @@ machine:
     CLOUDSDK_INSTALL_DIR: /tmp
 
 dependencies:
-  cache_directories:
-    - ~/google-cloud-sdk
   pre:
+    # Download App Engine SDK
+    # This is not necessary to deploy, its only necessary  to run local tests importing the App Engine SDK
+    - curl -o $HOME/google_appengine_1.9.40.zip https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.40.zip
+    - unzip -q -d $HOME $HOME/google_appengine_1.9.40.zip
+    # Retrieve our secrets from the CircleCI environment
     - echo $CLIENT_SECRET | base64 --decode > ${HOME}/client-secret.json
-    - if [ ! -d ~/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | bash
-    - ~/google-cloud-sdk/bin/gcloud --quiet components update
-    - ~/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file  ${HOME}/client-secret.json
-    - ~/google-cloud-sdk/bin/gcloud config set project ${GCLOUD_PROJECT}
-
-    # dependencies:
-    #   pre:
-    #     # Download App Engine SDK
-    #     # This is not necessary to deploy, its only necessary  to run local tests importing the App Engine SDK
-    #     - curl -o $HOME/google_appengine_1.9.40.zip https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.40.zip
-    #     - unzip -q -d $HOME $HOME/google_appengine_1.9.40.zip
-    #     # Retrieve our secrets from the CircleCI environment
-    #     - echo $CLIENT_SECRET | base64 --decode > ${HOME}/client-secret.json
-    #     # vendor our dependencies
-    #     # - mkdir -p lib
-    #     # - pip install -r requirements.txt -t lib
+    # vendor our dependencies
+    # - mkdir -p lib
+    # - pip install -r requirements.txt -t lib
 
     - pip install --upgrade pip setuptools webapp2 jinja2 webob
     # Make sure gcloud is up to date
@@ -51,20 +41,19 @@ dependencies:
     # PyOpenSSL is not available when trying to activate the service account.
     # Re-installing the gcloud worked as a workaround.
     # See https://discuss.circleci.com/t/deployment-to-appengine-fails-pyopenssl-not-available/2154
-    # - sudo apt-get remove python-virtualenv python-openssl python3-openssl
-    # - sudo apt-get update
-    # - sudo apt-get install python-openssl python3-openssl
-    # - sudo rm -rf /opt/google-cloud-sdk/
-    # - sudo chown -R $(whoami) /usr/local/bin
-    # - curl https://sdk.cloud.google.com | bash
-    # - source ~/.bashrc
+    - sudo apt-get remove python-virtualenv python-openssl python3-openssl
+    - sudo apt-get update
+    - sudo apt-get install python-openssl python3-openssl
+    - sudo rm -rf /opt/google-cloud-sdk/
+    - sudo curl https://sdk.cloud.google.com | sudo bash
+    - source ~/.bashrc
 
-    # post:
-    #     # - echo ${GCLOUD_SERVICE_KEY} | base64 --decode > ${HOME}/client-secret.json
-    #     - /tmp/google-cloud-sdk/bin/gcloud config set project ${GCLOUD_PROJECT}
-    #     - /tmp/google-cloud-sdk/bin/gcloud --quiet components update
-    #     - /tmp/google-cloud-sdk/bin/gcloud --quiet components install beta
-    #     - /tmp/google-cloud-sdk/bin/gcloud auth activate-service-account ${GCLOUD_SERVICE_ACCOUNT} --key-file ${HOME}/client-secret.json
+  post:
+      # - echo ${GCLOUD_SERVICE_KEY} | base64 --decode > ${HOME}/client-secret.json
+      - /tmp/google-cloud-sdk/bin/gcloud config set project ${GCLOUD_PROJECT}
+      - /tmp/google-cloud-sdk/bin/gcloud --quiet components update
+      - /tmp/google-cloud-sdk/bin/gcloud --quiet components install beta
+      - /tmp/google-cloud-sdk/bin/gcloud auth activate-service-account ${GCLOUD_SERVICE_ACCOUNT} --key-file ${HOME}/client-secret.json
 
 test:
   override:
