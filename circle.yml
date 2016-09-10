@@ -47,7 +47,7 @@ dependencies:
     - sudo apt-get install python-openssl python3-openssl
 
     - sudo chmod +x ~/.bashrc
-    - sudo rm -rf /opt/google-cloud-sdk/
+    # - sudo rm -rf /opt/google-cloud-sdk/
 
     # Action failed: curl https://sdk.cloud.google.com | bash
     # - curl https://sdk.cloud.google.com | bash
