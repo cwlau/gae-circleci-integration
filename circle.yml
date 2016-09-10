@@ -15,7 +15,7 @@ machine:
     CLOUDSDK_PYTHON_SITEPACKAGES: 1
     CLOUDSDK_CORE_DISABLE_PROMPTS: 1
 
-    CLOUDSDK_INSTALL_DIR: /tmp
+    # CLOUDSDK_INSTALL_DIR: /tmp
 
 dependencies:
   pre:
@@ -45,19 +45,17 @@ dependencies:
     - sudo apt-get remove python-virtualenv python-openssl python3-openssl
     - sudo apt-get update
     - sudo apt-get install python-openssl python3-openssl
-    - which gcloud
     # - sudo rm -rf /opt/google-cloud-sdk/
     # - curl https://sdk.cloud.google.com | bash
     - sudo bash ${HOME}/sdk.sh
-    - which gcloud
     - source ~/.bashrc
     - which gcloud
 
     # - echo ${GCLOUD_SERVICE_KEY} | base64 --decode > ${HOME}/client-secret.json
-    - /tmp/google-cloud-sdk/bin/gcloud config set project ${GCLOUD_PROJECT}
-    - /tmp/google-cloud-sdk/bin/gcloud --quiet components update
-    - /tmp/google-cloud-sdk/bin/gcloud --quiet components install beta
-    - /tmp/google-cloud-sdk/bin/gcloud auth activate-service-account ${GCLOUD_SERVICE_ACCOUNT} --key-file ${HOME}/client-secret.json
+    - /opt/google-cloud-sdk/bin/gcloud config set project ${GCLOUD_PROJECT}
+    - /opt/google-cloud-sdk/bin/gcloud --quiet components update
+    - /opt/google-cloud-sdk/bin/gcloud --quiet components install beta
+    - /opt/google-cloud-sdk/bin/gcloud auth activate-service-account ${GCLOUD_SERVICE_ACCOUNT} --key-file ${HOME}/client-secret.json
 
 test:
   override:
