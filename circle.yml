@@ -12,8 +12,10 @@ machine:
     # Add app engine sdk to pythonpath for local unit tests.
     PYTHONPATH: ${PYTHONPATH}:${HOME}/google_appengine
 
-    # Replace this with your project ID
-    GCLOUD_PROJECT: ${GCLOUD_PROJECT}
+    CLOUDSDK_PYTHON_SITEPACKAGES: 1
+    CLOUDSDK_CORE_DISABLE_PROMPTS: 1
+
+    CLOUDSDK_INSTALL_DIR: /tmp
 
 dependencies:
   pre:
@@ -29,11 +31,29 @@ dependencies:
 
     - pip install --upgrade pip setuptools webapp2 jinja2 webob
     # Make sure gcloud is up to date
-    - gcloud --quiet components update app
-    # authenticate gcloud
-    - gcloud auth activate-service-account --key-file ${HOME}/client-secret.json
-    # Replace <your-project-id>
-    - gcloud config set project ${GCLOUD_PROJECT}"
+    # - gcloud --quiet components update app
+    # # authenticate gcloud
+    # - gcloud auth activate-service-account --key-file ${HOME}/client-secret.json
+    # # Replace <your-project-id>
+    # - gcloud config set project ${GCLOUD_PROJECT}"
+
+    # For some reasons, there is an issue with the pre-installed gcloud that
+    # PyOpenSSL is not available when trying to activate the service account.
+    # Re-installing the gcloud worked as a workaround.
+    # See https://discuss.circleci.com/t/deployment-to-appengine-fails-pyopenssl-not-available/2154
+    - sudo apt-get remove python-virtualenv python-openssl python3-openssl
+    - sudo apt-get update
+    - sudo apt-get install python-openssl python3-openssl
+    - sudo rm -rf /opt/google-cloud-sdk/
+    - curl https://sdk.cloud.google.com | bash
+    - source ~/.bashrc
+
+  post:
+      # - echo ${GCLOUD_SERVICE_KEY} | base64 --decode > ${HOME}/client-secret.json
+      - /tmp/google-cloud-sdk/bin/gcloud config set project ${GCLOUD_PROJECT}
+      - /tmp/google-cloud-sdk/bin/gcloud --quiet components update
+      - /tmp/google-cloud-sdk/bin/gcloud --quiet components install beta
+      - /tmp/google-cloud-sdk/bin/gcloud auth activate-service-account ${GCLOUD_SERVICE_ACCOUNT} --key-file ${HOME}/client-secret.json
 
 test:
   override:
