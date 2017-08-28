@@ -12,10 +12,8 @@ machine:
     # Add app engine sdk to pythonpath for local unit tests.
     PYTHONPATH: ${PYTHONPATH}:${HOME}/google_appengine
 
-    CLOUDSDK_PYTHON_SITEPACKAGES: 1
-    CLOUDSDK_CORE_DISABLE_PROMPTS: 1
-
-    # CLOUDSDK_INSTALL_DIR: /tmp
+    # Replace this with your project ID
+    GCLOUD_PROJECT: "gae-circleci-integration"
 
 dependencies:
   pre:
@@ -25,59 +23,18 @@ dependencies:
     - unzip -q -d $HOME $HOME/google_appengine_1.9.40.zip
     # Retrieve our secrets from the CircleCI environment
     - echo $CLIENT_SECRET | base64 --decode > ${HOME}/client-secret.json
-    - echo $BASH > ${HOME}/sdk.sh
+    # - sed  s/YOUR-API-KEY/$API_KEY/ api_key.py.sample > api_key.py
     # vendor our dependencies
     # - mkdir -p lib
     # - pip install -r requirements.txt -t lib
 
     - pip install --upgrade pip setuptools webapp2 jinja2 webob
     # Make sure gcloud is up to date
-    # - gcloud --quiet components update app
-    # # authenticate gcloud
-    # - gcloud auth activate-service-account --key-file ${HOME}/client-secret.json
-    # # Replace <your-project-id>
-    # - gcloud config set project ${GCLOUD_PROJECT}"
-
-    - sudo apt-get remove python-virtualenv python-openssl python3-openssl
-    - sudo apt-get update
-    - sudo apt-get install python-openssl python3-openssl
-    - sudo rm -rf /opt/google-cloud-sdk/
-    - export CLOUDSDK_CORE_DISABLE_PROMPTS=1
-    - export CLOUDSDK_PYTHON_SITEPACKAGES=1
-    - curl https://sdk.cloud.google.com | bash
-    - source ~/.bashrc
-    - export CLOUDSDK_CORE_DISABLE_PROMPTS=0
-
-    # For some reasons, there is an issue with the pre-installed gcloud that
-    # PyOpenSSL is not available when trying to activate the service account.
-    # Re-installing the gcloud worked as a workaround.
-    # See https://discuss.circleci.com/t/deployment-to-appengine-fails-pyopenssl-not-available/2154
-    # - sudo apt-get remove python-virtualenv python-openssl python3-openssl
-    # - sudo apt-get update
-    # - sudo apt-get install python-openssl python3-openssl
-
-    # - sudo chmod +x ~/.bashrc
-    # - sudo rm -rf /opt/google-cloud-sdk/
-
-    # Action failed: curl https://sdk.cloud.google.com | bash
-    # - curl https://sdk.cloud.google.com | bash
-
-    # - sudo bash ${HOME}/sdk.sh
-    # - sudo export PATH="/opt/google-cloud-sdk/bin:$PATH"
-
-    # # The next line updates PATH for the Google Cloud SDK.
-    # - source $HOME/google-cloud-sdk/path.bash.inc"
-    # # The next line enables bash completion for gcloud.
-    # - source "$HOME/google-cloud-sdk/completion.bash.inc"
-
-    # - source ~/.bashrc
-    # - which gcloud
-
-    # - echo ${GCLOUD_SERVICE_KEY} | base64 --decode > ${HOME}/client-secret.json
-    - sudo /opt/google-cloud-sdk/bin/gcloud config set project ${GCLOUD_PROJECT}
-    - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update --version 118.0.0
-    # - /opt/google-cloud-sdk/bin/gcloud --quiet components install beta
-    - /opt/google-cloud-sdk/bin/gcloud auth activate-service-account ${GCLOUD_SERVICE_ACCOUNT} --key-file ${HOME}/client-secret.json
+    - gcloud --quiet components update app
+    # authenticate gcloud
+    - gcloud auth activate-service-account --key-file ${HOME}/client-secret.json
+    # Replace <your-project-id>
+    - gcloud config set project gae-circleci-integration
 
 test:
   override:
