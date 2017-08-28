@@ -6,7 +6,7 @@ Google App Engine CircleCI Continuous Integration
 
 This repository contains Google App Engine source code which is available for continuous integration with CircleCI.
 
-Live demo: http://gae-circleci-integration.appspot.com
+Live demo: https://gae-circleci-integration.appspot.com
 
 ## Overview: Some key steps of the flow
 
@@ -43,14 +43,12 @@ You will need to base64 encode the key files and add to the Circle CI project as
 
 `base64 <your_secret.json>`
 
-- Copy the output of the base64 command into the 'Value' form, with the name CLIENT_SECRET, then click Save Variable.
+- Copy the output of the base64 command into the 'Value' form, with the name `CLIENT_SECRET`, then click Save Variable.
 
 ![](./images/circleci_env_var_settings.png)
 
+- Also set the environment variable  `GCLOUD_PROJECT` as your app-id, e.g. `gae-circleci-integration`.
 
-- In the circle.yml file, replace the project_id in `GCLOUD_PROJECT: "gae-circleci-integration"` with your project id.
-
-- In the circle.yml file, replace the project_id in `gcloud config set project gae-circleci-integration` with your project id.
 - In run_test.py, replace the in the HOST variable with the URL your project will be deployed to https://gae-circleci-integration.appspot.com.
 
 - Commit and push your changes. The circle project should run the local tests, then use the gcloud SDK (authenticated with the client-secret) to deploy to the appspot URL, then run the e2e tests against that URL.

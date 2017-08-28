@@ -1,8 +1,9 @@
 # Google App Engine generated folder
 appengine-generated/
 
-api_key.py
 
+# Mac
+.DS_Store
 
 *.py[cod]
 
