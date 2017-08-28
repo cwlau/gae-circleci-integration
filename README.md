@@ -6,7 +6,7 @@ Google App Engine CircleCI Continuous Integration
 
 This repository contains Google App Engine source code which is available for continuous integration with CircleCI.
 
-Live demo: http://gae-circleci-integration.appspot.com
+Live demo: https://gae-circleci-integration.appspot.com
 
 ## Overview: Some key steps of the flow
 
