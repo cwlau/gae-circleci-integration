@@ -46,6 +46,6 @@ deployment:
         branch: master
         commands:
         # deploy to App Engine
-        - gcloud app deploy app.yaml --promote --version=1
+        - gcloud -q app deploy app.yaml --promote --version=1
         # Run Test
         - python run_test.py
