@@ -45,7 +45,7 @@ deployment:
     staging:
         branch: master
         commands:
-        # deploy to AppEngine
-        - gcloud -q preview app deploy app.yaml --promote --version=1
+        # deploy to App Engine
+        - gcloud app deploy app.yaml --promote --version=1
         # Run Test
         - python run_test.py
